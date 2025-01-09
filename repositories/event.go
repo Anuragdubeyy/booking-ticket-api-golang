@@ -1,17 +1,28 @@
 package repository
-import "github.com/Anuragdubeyy/ticket-booking-api/models"
 
-type EventRepository interface {
+import (
+	"context"
+	"github.com/Anuragdubeyy/ticket-booking-api/models"
+	"time"
+)
+
+type EventRepository struct {
 	db any
-	GetMany( ctx context.Context) ([]*models.Event, error)
-	GetOne(ctx context.Context, eventId string) (*models.Event, error)
-	CreateOne(ctx context.Context, event models.Event) error
-	UpdateEvent(event models.Event) error
-	DeleteEvent(id string) error
 }
 
-func (r *EventRepository) GetMany( ctx context.Context) ([]*models.Event, error) {
-	return nil, nil
+func (r *EventRepository) GetMany(ctx context.Context) ([]*models.Event, error) {
+	events := []*models.Event{}
+
+	events = append(events, &models.Event{
+		ID:        "012345678923456789",
+		Name:      "Event 1",
+		Location:  "Location 1",
+		Date:      time.Now(),
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	})
+
+	return events, nil
 }
 
 func (r *EventRepository) GetOne(ctx context.Context, eventId string) (*models.Event, error) {
@@ -19,8 +30,11 @@ func (r *EventRepository) GetOne(ctx context.Context, eventId string) (*models.E
 }
 
 func (r *EventRepository) CreateOne(ctx context.Context, event models.Event) error {
-	return nil, nil
+	return nil
 }
+
 func NewEventRepository(db any) models.EventRepository {
-	return &EventRepository{db:db}
+	return &EventRepository{
+		db: db,
+	}
 }
